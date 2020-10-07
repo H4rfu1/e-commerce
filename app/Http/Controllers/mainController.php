@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
+use App\user_role;
 
 class mainController extends Controller
 {
@@ -13,7 +15,37 @@ class mainController extends Controller
      */
     public function index()
     {
+        //manual select
+        // $user_role = DB::select("select * from user_role");
+        //with object
+        $user_role = user_role::all();
+        echo "<pre>";
+        var_dump($user_role);
+
+        // create
+        // $data = new user_role();
+        // $data->role = 'role baru';
+        // try {
+        //   $data->save();
         //
+        // } catch (\Exception $e) {
+        //   return response()->json($e->getMessage(), 500);
+        // }
+
+        // update
+        // $data = user_role::findOrFail(idnya);
+        // $data->role = 'role baru';
+        // try {
+        //   $data->save();
+        //
+        // } catch (\Exception $e) {
+        //   return response()->json($e->getMessage(), 500);
+        // }
+
+
+
+
+
     }
 
     /**
