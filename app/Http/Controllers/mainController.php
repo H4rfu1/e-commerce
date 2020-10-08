@@ -23,6 +23,7 @@ class mainController extends Controller
         var_dump($user_role);
 
         // create
+        //
         // $data = new user_role();
         // $data->role = 'role baru';
         // try {
@@ -55,7 +56,8 @@ class mainController extends Controller
      */
     public function create()
     {
-        //
+      return view('edit')->cookie('groups', 'Administrator', 60); // dalam menit
+      //echo $request->cookie('groups');
     }
 
     /**
@@ -66,7 +68,17 @@ class mainController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+          'role' => ['required', 'text'] // nullabel string
+        ]);
+
+        //DB:insert("INSERT INTO user_role VALUES(null, '".$request->input('role')."')");
+        $data = new user_role();
+        $data->role = $request->input('role'); // kali file $request->file('foto')->store('dir');
+        $data->save();
+
+        return redirect('crud');
     }
 
     /**
@@ -88,7 +100,9 @@ class mainController extends Controller
      */
     public function edit($id)
     {
-        //
+        return view('edit',[
+          'data' => user_role::findOrFail($id)
+        ]);
     }
 
     /**
@@ -100,7 +114,12 @@ class mainController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        //DB:insert("UPDATE user_role SET role ='".$request->input('role')."' WHERE role_id = $id");
+        $data = user_role::findOrFail($id);
+        $data->role = $request->input('role');
+        $data->save();
+
+        return redirect('crud');
     }
 
     /**
@@ -111,6 +130,9 @@ class mainController extends Controller
      */
     public function destroy($id)
     {
-        //
+        //DB:delete("DELETE FROM user_role WHERE role_id = $id");
+        $data = user_role::findOrFail($id);
+        $data->delete();
+        return redirect('crud');
     }
 }

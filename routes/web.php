@@ -11,9 +11,11 @@
 |
 */
 
-Route::get('/home', function () {
-    return "hello sini view";
-});
+// Route::get('/home', function () {
+//     return "hello sini view";
+// });
 Route::resource('/crud', 'mainController');
-Route::resource('/', 'HomeController');
-Route::resource('/masuk', 'AuthController');
+Route::resource('/home', 'HomeController');
+Route::get('/', function () {
+    return view('welcome');
+});
